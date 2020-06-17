@@ -1,0 +1,98 @@
+﻿@model IEnumerable<LTWEB.Models.PRODUCT>
+
+@{
+    ViewBag.Title = "ListBaiViet";
+    Layout = "~/Views/Shared/MasterAd.cshtml";
+}
+@if (Session["TaiKhoan"] != null)
+{
+    <a style="text-decoration:none; font-size:25px;" href="@Url.Action("Getlistbaiviet","Admin")" class="active">Bài viết đã được duyệt</a><text>/</text><a style="text-decoration:none;" href="@Url.Action("ListBaiViet1","Admin")">Bài viết chưa được duyệt</a>
+    <span style="color:red;font-size:20px;">@ViewData["Succ"]</span>
+    <p>
+        @Html.ActionLink("Đăng bài", "Create", "Admin")
+    </p>
+    <table class="table" border="1" width="1000">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Hình
+            </th>
+            <th>
+                Nội dung
+            </th>
+            <th>
+                GIÁ
+            </th>
+            <th>
+                Meta
+            </th>
+            <th>
+                Size
+            </th>
+            <th>
+                Color
+            </th>
+            <th>
+                Order
+            </th>
+            <th>
+                Ngày đăng
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            <img src="~/Content/HinhAnh/@item.img" width="300" />
+            @Html.DisplayFor(modelItem => item.img)
+        </td>
+        <td>
+            @Html.Raw(item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.meta)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.size)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.order)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datebegin)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Capnhat", new { id = item.id }) |
+            @Html.ActionLink("Details", "Chitietbaiviet", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Home", new { id = item.id }) |
+            @Html.ActionLink("Hiện bài", "Showbai", new { id = item.id }) |
+        </td>
+    </tr>
+        }
+
+    </table>
+}
+<center><span style="font-size:50px;text-align:center;color:red;">@ViewData["Loi1"]</span></center>
+

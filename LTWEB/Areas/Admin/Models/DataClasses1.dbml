@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LTWEB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-1FJ13KA\SQLEXPRESS;Initial Catalog=LTWEB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="LTWEBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ROLE" Member="ROLEs">
+    <Type Name="ROLE">
+      <Column Name="ID_ROLE" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QUYEN" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Association Name="ROLE_ACCOUNT" Member="ACCOUNTs" ThisKey="ID_ROLE" OtherKey="ID_ROLE" Type="ACCOUNT" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ACCOUNT" Member="ACCOUNTs">
+    <Type Name="ACCOUNT">
+      <Column Name="IDACC" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HOTEN" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="MATKHAU" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="SDT" Type="System.String" DbType="VarChar(12) NOT NULL" CanBeNull="false" />
+      <Column Name="DIACHI" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ID_ROLE" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ROLE_ACCOUNT" Member="ROLE" ThisKey="ID_ROLE" OtherKey="ID_ROLE" Type="ROLE" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

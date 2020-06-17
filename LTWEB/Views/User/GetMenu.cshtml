@@ -1,0 +1,9 @@
+﻿@model IEnumerable<LTWEB.Models.MENU>
+
+<span class="menu"> </span>    
+<ul class="nav navbar-nav collapse navbar-collapse">
+            @foreach (var i in Model)
+            {
+                <li><a href="#">@i.name</a></li>
+            }
+</ul>
