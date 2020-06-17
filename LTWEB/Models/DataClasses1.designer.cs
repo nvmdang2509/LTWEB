@@ -33,9 +33,9 @@ namespace LTWEB.Models
     partial void InsertACCOUNT(ACCOUNT instance);
     partial void UpdateACCOUNT(ACCOUNT instance);
     partial void DeleteACCOUNT(ACCOUNT instance);
-    partial void InsertPRODUCT(PRODUCT instance);
-    partial void UpdatePRODUCT(PRODUCT instance);
-    partial void DeletePRODUCT(PRODUCT instance);
+    partial void InsertROLE(ROLE instance);
+    partial void UpdateROLE(ROLE instance);
+    partial void DeleteROLE(ROLE instance);
     partial void InsertCATEGORY(CATEGORY instance);
     partial void UpdateCATEGORY(CATEGORY instance);
     partial void DeleteCATEGORY(CATEGORY instance);
@@ -45,13 +45,13 @@ namespace LTWEB.Models
     partial void InsertNEW(NEW instance);
     partial void UpdateNEW(NEW instance);
     partial void DeleteNEW(NEW instance);
-    partial void InsertROLE(ROLE instance);
-    partial void UpdateROLE(ROLE instance);
-    partial void DeleteROLE(ROLE instance);
+    partial void InsertPRODUCT(PRODUCT instance);
+    partial void UpdatePRODUCT(PRODUCT instance);
+    partial void DeletePRODUCT(PRODUCT instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["LTWEBConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["LTWEBConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -88,11 +88,11 @@ namespace LTWEB.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<PRODUCT> PRODUCTs
+		public System.Data.Linq.Table<ROLE> ROLEs
 		{
 			get
 			{
-				return this.GetTable<PRODUCT>();
+				return this.GetTable<ROLE>();
 			}
 		}
 		
@@ -120,11 +120,11 @@ namespace LTWEB.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<ROLE> ROLEs
+		public System.Data.Linq.Table<PRODUCT> PRODUCTs
 		{
 			get
 			{
-				return this.GetTable<ROLE>();
+				return this.GetTable<PRODUCT>();
 			}
 		}
 	}
@@ -352,349 +352,84 @@ namespace LTWEB.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PRODUCT")]
-	public partial class PRODUCT : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ROLE")]
+	public partial class ROLE : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _id;
+		private int _ID_ROLE;
 		
-		private string _name;
+		private string _QUYEN;
 		
-		private System.Nullable<double> _price;
-		
-		private string _img;
-		
-		private string _description;
-		
-		private string _meta;
-		
-		private string _size;
-		
-		private string _color;
-		
-		private System.Nullable<bool> _hide;
-		
-		private System.Nullable<int> _order;
-		
-		private System.Nullable<System.DateTime> _datebegin;
-		
-		private System.Nullable<int> _categoryid;
-		
-		private EntityRef<CATEGORY> _CATEGORY;
+		private EntitySet<ACCOUNT> _ACCOUNTs;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnpriceChanging(System.Nullable<double> value);
-    partial void OnpriceChanged();
-    partial void OnimgChanging(string value);
-    partial void OnimgChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OnmetaChanging(string value);
-    partial void OnmetaChanged();
-    partial void OnsizeChanging(string value);
-    partial void OnsizeChanged();
-    partial void OncolorChanging(string value);
-    partial void OncolorChanged();
-    partial void OnhideChanging(System.Nullable<bool> value);
-    partial void OnhideChanged();
-    partial void OnorderChanging(System.Nullable<int> value);
-    partial void OnorderChanged();
-    partial void OndatebeginChanging(System.Nullable<System.DateTime> value);
-    partial void OndatebeginChanged();
-    partial void OncategoryidChanging(System.Nullable<int> value);
-    partial void OncategoryidChanged();
+    partial void OnID_ROLEChanging(int value);
+    partial void OnID_ROLEChanged();
+    partial void OnQUYENChanging(string value);
+    partial void OnQUYENChanged();
     #endregion
 		
-		public PRODUCT()
+		public ROLE()
 		{
-			this._CATEGORY = default(EntityRef<CATEGORY>);
+			this._ACCOUNTs = new EntitySet<ACCOUNT>(new Action<ACCOUNT>(this.attach_ACCOUNTs), new Action<ACCOUNT>(this.detach_ACCOUNTs));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_ROLE", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ID_ROLE
 		{
 			get
 			{
-				return this._id;
+				return this._ID_ROLE;
 			}
 			set
 			{
-				if ((this._id != value))
+				if ((this._ID_ROLE != value))
 				{
-					this.OnidChanging(value);
+					this.OnID_ROLEChanging(value);
 					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
+					this._ID_ROLE = value;
+					this.SendPropertyChanged("ID_ROLE");
+					this.OnID_ROLEChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50)")]
-		public string name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUYEN", DbType="VarChar(5) NOT NULL", CanBeNull=false)]
+		public string QUYEN
 		{
 			get
 			{
-				return this._name;
+				return this._QUYEN;
 			}
 			set
 			{
-				if ((this._name != value))
+				if ((this._QUYEN != value))
 				{
-					this.OnnameChanging(value);
+					this.OnQUYENChanging(value);
 					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
+					this._QUYEN = value;
+					this.SendPropertyChanged("QUYEN");
+					this.OnQUYENChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Float")]
-		public System.Nullable<double> price
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ROLE_ACCOUNT", Storage="_ACCOUNTs", ThisKey="ID_ROLE", OtherKey="ID_ROLE")]
+		public EntitySet<ACCOUNT> ACCOUNTs
 		{
 			get
 			{
-				return this._price;
+				return this._ACCOUNTs;
 			}
 			set
 			{
-				if ((this._price != value))
-				{
-					this.OnpriceChanging(value);
-					this.SendPropertyChanging();
-					this._price = value;
-					this.SendPropertyChanged("price");
-					this.OnpriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_img", DbType="NVarChar(MAX)")]
-		public string img
-		{
-			get
-			{
-				return this._img;
-			}
-			set
-			{
-				if ((this._img != value))
-				{
-					this.OnimgChanging(value);
-					this.SendPropertyChanging();
-					this._img = value;
-					this.SendPropertyChanged("img");
-					this.OnimgChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_meta", DbType="NVarChar(50)")]
-		public string meta
-		{
-			get
-			{
-				return this._meta;
-			}
-			set
-			{
-				if ((this._meta != value))
-				{
-					this.OnmetaChanging(value);
-					this.SendPropertyChanging();
-					this._meta = value;
-					this.SendPropertyChanged("meta");
-					this.OnmetaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_size", DbType="NVarChar(10)")]
-		public string size
-		{
-			get
-			{
-				return this._size;
-			}
-			set
-			{
-				if ((this._size != value))
-				{
-					this.OnsizeChanging(value);
-					this.SendPropertyChanging();
-					this._size = value;
-					this.SendPropertyChanged("size");
-					this.OnsizeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_color", DbType="NVarChar(30)")]
-		public string color
-		{
-			get
-			{
-				return this._color;
-			}
-			set
-			{
-				if ((this._color != value))
-				{
-					this.OncolorChanging(value);
-					this.SendPropertyChanging();
-					this._color = value;
-					this.SendPropertyChanged("color");
-					this.OncolorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hide", DbType="Bit")]
-		public System.Nullable<bool> hide
-		{
-			get
-			{
-				return this._hide;
-			}
-			set
-			{
-				if ((this._hide != value))
-				{
-					this.OnhideChanging(value);
-					this.SendPropertyChanging();
-					this._hide = value;
-					this.SendPropertyChanged("hide");
-					this.OnhideChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[order]", Storage="_order", DbType="Int")]
-		public System.Nullable<int> order
-		{
-			get
-			{
-				return this._order;
-			}
-			set
-			{
-				if ((this._order != value))
-				{
-					this.OnorderChanging(value);
-					this.SendPropertyChanging();
-					this._order = value;
-					this.SendPropertyChanged("order");
-					this.OnorderChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_datebegin", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> datebegin
-		{
-			get
-			{
-				return this._datebegin;
-			}
-			set
-			{
-				if ((this._datebegin != value))
-				{
-					this.OndatebeginChanging(value);
-					this.SendPropertyChanging();
-					this._datebegin = value;
-					this.SendPropertyChanged("datebegin");
-					this.OndatebeginChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_categoryid", DbType="Int")]
-		public System.Nullable<int> categoryid
-		{
-			get
-			{
-				return this._categoryid;
-			}
-			set
-			{
-				if ((this._categoryid != value))
-				{
-					if (this._CATEGORY.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OncategoryidChanging(value);
-					this.SendPropertyChanging();
-					this._categoryid = value;
-					this.SendPropertyChanged("categoryid");
-					this.OncategoryidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CATEGORY_PRODUCT", Storage="_CATEGORY", ThisKey="categoryid", OtherKey="categoryid", IsForeignKey=true)]
-		public CATEGORY CATEGORY
-		{
-			get
-			{
-				return this._CATEGORY.Entity;
-			}
-			set
-			{
-				CATEGORY previousValue = this._CATEGORY.Entity;
-				if (((previousValue != value) 
-							|| (this._CATEGORY.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CATEGORY.Entity = null;
-						previousValue.PRODUCTs.Remove(this);
-					}
-					this._CATEGORY.Entity = value;
-					if ((value != null))
-					{
-						value.PRODUCTs.Add(this);
-						this._categoryid = value.categoryid;
-					}
-					else
-					{
-						this._categoryid = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("CATEGORY");
-				}
+				this._ACCOUNTs.Assign(value);
 			}
 		}
 		
@@ -716,6 +451,18 @@ namespace LTWEB.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ACCOUNTs(ACCOUNT entity)
+		{
+			this.SendPropertyChanging();
+			entity.ROLE = this;
+		}
+		
+		private void detach_ACCOUNTs(ACCOUNT entity)
+		{
+			this.SendPropertyChanging();
+			entity.ROLE = null;
 		}
 	}
 	
@@ -1437,84 +1184,349 @@ namespace LTWEB.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ROLE")]
-	public partial class ROLE : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PRODUCT")]
+	public partial class PRODUCT : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _ID_ROLE;
+		private int _id;
 		
-		private string _QUYEN;
+		private string _name;
 		
-		private EntitySet<ACCOUNT> _ACCOUNTs;
+		private System.Nullable<double> _price;
+		
+		private string _img;
+		
+		private string _description;
+		
+		private string _meta;
+		
+		private string _size;
+		
+		private string _color;
+		
+		private System.Nullable<bool> _hide;
+		
+		private System.Nullable<int> _order;
+		
+		private System.Nullable<System.DateTime> _datebegin;
+		
+		private System.Nullable<int> _categoryid;
+		
+		private EntityRef<CATEGORY> _CATEGORY;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnID_ROLEChanging(int value);
-    partial void OnID_ROLEChanged();
-    partial void OnQUYENChanging(string value);
-    partial void OnQUYENChanged();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnpriceChanging(System.Nullable<double> value);
+    partial void OnpriceChanged();
+    partial void OnimgChanging(string value);
+    partial void OnimgChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnmetaChanging(string value);
+    partial void OnmetaChanged();
+    partial void OnsizeChanging(string value);
+    partial void OnsizeChanged();
+    partial void OncolorChanging(string value);
+    partial void OncolorChanged();
+    partial void OnhideChanging(System.Nullable<bool> value);
+    partial void OnhideChanged();
+    partial void OnorderChanging(System.Nullable<int> value);
+    partial void OnorderChanged();
+    partial void OndatebeginChanging(System.Nullable<System.DateTime> value);
+    partial void OndatebeginChanged();
+    partial void OncategoryidChanging(System.Nullable<int> value);
+    partial void OncategoryidChanged();
     #endregion
 		
-		public ROLE()
+		public PRODUCT()
 		{
-			this._ACCOUNTs = new EntitySet<ACCOUNT>(new Action<ACCOUNT>(this.attach_ACCOUNTs), new Action<ACCOUNT>(this.detach_ACCOUNTs));
+			this._CATEGORY = default(EntityRef<CATEGORY>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_ROLE", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ID_ROLE
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
 		{
 			get
 			{
-				return this._ID_ROLE;
+				return this._id;
 			}
 			set
 			{
-				if ((this._ID_ROLE != value))
+				if ((this._id != value))
 				{
-					this.OnID_ROLEChanging(value);
+					this.OnidChanging(value);
 					this.SendPropertyChanging();
-					this._ID_ROLE = value;
-					this.SendPropertyChanged("ID_ROLE");
-					this.OnID_ROLEChanged();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QUYEN", DbType="VarChar(5) NOT NULL", CanBeNull=false)]
-		public string QUYEN
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50)")]
+		public string name
 		{
 			get
 			{
-				return this._QUYEN;
+				return this._name;
 			}
 			set
 			{
-				if ((this._QUYEN != value))
+				if ((this._name != value))
 				{
-					this.OnQUYENChanging(value);
+					this.OnnameChanging(value);
 					this.SendPropertyChanging();
-					this._QUYEN = value;
-					this.SendPropertyChanged("QUYEN");
-					this.OnQUYENChanged();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ROLE_ACCOUNT", Storage="_ACCOUNTs", ThisKey="ID_ROLE", OtherKey="ID_ROLE")]
-		public EntitySet<ACCOUNT> ACCOUNTs
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Float")]
+		public System.Nullable<double> price
 		{
 			get
 			{
-				return this._ACCOUNTs;
+				return this._price;
 			}
 			set
 			{
-				this._ACCOUNTs.Assign(value);
+				if ((this._price != value))
+				{
+					this.OnpriceChanging(value);
+					this.SendPropertyChanging();
+					this._price = value;
+					this.SendPropertyChanged("price");
+					this.OnpriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_img", DbType="NVarChar(MAX)")]
+		public string img
+		{
+			get
+			{
+				return this._img;
+			}
+			set
+			{
+				if ((this._img != value))
+				{
+					this.OnimgChanging(value);
+					this.SendPropertyChanging();
+					this._img = value;
+					this.SendPropertyChanged("img");
+					this.OnimgChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_meta", DbType="NVarChar(50)")]
+		public string meta
+		{
+			get
+			{
+				return this._meta;
+			}
+			set
+			{
+				if ((this._meta != value))
+				{
+					this.OnmetaChanging(value);
+					this.SendPropertyChanging();
+					this._meta = value;
+					this.SendPropertyChanged("meta");
+					this.OnmetaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_size", DbType="NVarChar(10)")]
+		public string size
+		{
+			get
+			{
+				return this._size;
+			}
+			set
+			{
+				if ((this._size != value))
+				{
+					this.OnsizeChanging(value);
+					this.SendPropertyChanging();
+					this._size = value;
+					this.SendPropertyChanged("size");
+					this.OnsizeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_color", DbType="NVarChar(30)")]
+		public string color
+		{
+			get
+			{
+				return this._color;
+			}
+			set
+			{
+				if ((this._color != value))
+				{
+					this.OncolorChanging(value);
+					this.SendPropertyChanging();
+					this._color = value;
+					this.SendPropertyChanged("color");
+					this.OncolorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hide", DbType="Bit")]
+		public System.Nullable<bool> hide
+		{
+			get
+			{
+				return this._hide;
+			}
+			set
+			{
+				if ((this._hide != value))
+				{
+					this.OnhideChanging(value);
+					this.SendPropertyChanging();
+					this._hide = value;
+					this.SendPropertyChanged("hide");
+					this.OnhideChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[order]", Storage="_order", DbType="Int")]
+		public System.Nullable<int> order
+		{
+			get
+			{
+				return this._order;
+			}
+			set
+			{
+				if ((this._order != value))
+				{
+					this.OnorderChanging(value);
+					this.SendPropertyChanging();
+					this._order = value;
+					this.SendPropertyChanged("order");
+					this.OnorderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_datebegin", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> datebegin
+		{
+			get
+			{
+				return this._datebegin;
+			}
+			set
+			{
+				if ((this._datebegin != value))
+				{
+					this.OndatebeginChanging(value);
+					this.SendPropertyChanging();
+					this._datebegin = value;
+					this.SendPropertyChanged("datebegin");
+					this.OndatebeginChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_categoryid", DbType="Int")]
+		public System.Nullable<int> categoryid
+		{
+			get
+			{
+				return this._categoryid;
+			}
+			set
+			{
+				if ((this._categoryid != value))
+				{
+					if (this._CATEGORY.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OncategoryidChanging(value);
+					this.SendPropertyChanging();
+					this._categoryid = value;
+					this.SendPropertyChanged("categoryid");
+					this.OncategoryidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CATEGORY_PRODUCT", Storage="_CATEGORY", ThisKey="categoryid", OtherKey="categoryid", IsForeignKey=true)]
+		public CATEGORY CATEGORY
+		{
+			get
+			{
+				return this._CATEGORY.Entity;
+			}
+			set
+			{
+				CATEGORY previousValue = this._CATEGORY.Entity;
+				if (((previousValue != value) 
+							|| (this._CATEGORY.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CATEGORY.Entity = null;
+						previousValue.PRODUCTs.Remove(this);
+					}
+					this._CATEGORY.Entity = value;
+					if ((value != null))
+					{
+						value.PRODUCTs.Add(this);
+						this._categoryid = value.categoryid;
+					}
+					else
+					{
+						this._categoryid = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("CATEGORY");
+				}
 			}
 		}
 		
@@ -1536,18 +1548,6 @@ namespace LTWEB.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_ACCOUNTs(ACCOUNT entity)
-		{
-			this.SendPropertyChanging();
-			entity.ROLE = this;
-		}
-		
-		private void detach_ACCOUNTs(ACCOUNT entity)
-		{
-			this.SendPropertyChanging();
-			entity.ROLE = null;
 		}
 	}
 }

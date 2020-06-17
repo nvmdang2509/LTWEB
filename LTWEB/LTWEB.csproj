@@ -242,6 +242,8 @@
     <Content Include="Asset\page\images\cart\one.png" />
     <Content Include="Asset\page\images\cart\three.png" />
     <Content Include="Asset\page\images\cart\two.png" />
+    <Content Include="Asset\page\images\home\a.jpg" />
+    <Content Include="Asset\page\images\home\bgdung.jpg" />
     <Content Include="Asset\page\images\home\bg_border.png" />
     <Content Include="Asset\page\images\home\gallery1.jpg" />
     <Content Include="Asset\page\images\home\gallery2.jpg" />

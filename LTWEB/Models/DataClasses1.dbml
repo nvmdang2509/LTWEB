@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LTWEB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-1FJ13KA\SQLEXPRESS;Initial Catalog=LTWEB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="LTWEBConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ADMIN\SQLEXPRESS;Initial Catalog=LTWEB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="LTWEBConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.ACCOUNT" Member="ACCOUNTs">
     <Type Name="ACCOUNT">
       <Column Name="IDACC" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -11,21 +11,11 @@
       <Association Name="ROLE_ACCOUNT" Member="ROLE" ThisKey="ID_ROLE" OtherKey="ID_ROLE" Type="ROLE" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PRODUCT" Member="PRODUCTs">
-    <Type Name="PRODUCT">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="img" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="meta" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="size" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="color" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="hide" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="[order]" Member="order" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="datebegin" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="categoryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="CATEGORY_PRODUCT" Member="CATEGORY" ThisKey="categoryid" OtherKey="categoryid" Type="CATEGORY" IsForeignKey="true" />
+  <Table Name="dbo.ROLE" Member="ROLEs">
+    <Type Name="ROLE">
+      <Column Name="ID_ROLE" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QUYEN" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Association Name="ROLE_ACCOUNT" Member="ACCOUNTs" ThisKey="ID_ROLE" OtherKey="ID_ROLE" Type="ACCOUNT" />
     </Type>
   </Table>
   <Table Name="dbo.CATEGORY" Member="CATEGORies">
@@ -65,11 +55,21 @@
       <Column Name="datebegin" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.ROLE" Member="ROLEs">
-    <Type Name="ROLE">
-      <Column Name="ID_ROLE" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="QUYEN" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
-      <Association Name="ROLE_ACCOUNT" Member="ACCOUNTs" ThisKey="ID_ROLE" OtherKey="ID_ROLE" Type="ACCOUNT" />
+  <Table Name="dbo.PRODUCT" Member="PRODUCTs">
+    <Type Name="PRODUCT">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="img" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="meta" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="size" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="color" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="hide" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[order]" Member="order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="datebegin" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="categoryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CATEGORY_PRODUCT" Member="CATEGORY" ThisKey="categoryid" OtherKey="categoryid" Type="CATEGORY" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
