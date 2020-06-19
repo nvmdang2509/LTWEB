@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LTWEB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=ADMIN\SQLEXPRESS;Initial Catalog=LTWEB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="LTWEBConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-1FJ13KA\SQLEXPRESS;Initial Catalog=LTWEB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="LTWEBConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.ACCOUNT" Member="ACCOUNTs">
     <Type Name="ACCOUNT">
       <Column Name="IDACC" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -27,7 +27,13 @@
       <Column Name="hide" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="[order]" Member="order" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="datebegin" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Association Name="CATEGORY_PRODUCT" Member="PRODUCTs" ThisKey="categoryid" OtherKey="categoryid" Type="PRODUCT" />
+    </Type>
+  </Table>
+  <Table Name="dbo.COLOR" Member="COLORs">
+    <Type Name="COLOR">
+      <Column Name="idcolor" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="color" Member="color1" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="COLOR_PRODUCT" Member="PRODUCTs" ThisKey="idcolor" OtherKey="idcolor" Type="PRODUCT" />
     </Type>
   </Table>
   <Table Name="dbo.MENU" Member="MENUs">
@@ -69,7 +75,17 @@
       <Column Name="[order]" Member="order" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="datebegin" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="categoryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="CATEGORY_PRODUCT" Member="CATEGORY" ThisKey="categoryid" OtherKey="categoryid" Type="CATEGORY" IsForeignKey="true" />
+      <Column Name="idcolor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idsize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="COLOR_PRODUCT" Member="COLOR1" ThisKey="idcolor" OtherKey="idcolor" Type="COLOR" IsForeignKey="true" />
+      <Association Name="SIZE_PRODUCT" Member="SIZE1" ThisKey="idsize" OtherKey="idsize" Type="SIZE" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIZE" Member="SIZEs">
+    <Type Name="SIZE">
+      <Column Name="idsize" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="size" Member="size1" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="SIZE_PRODUCT" Member="PRODUCTs" ThisKey="idsize" OtherKey="idsize" Type="PRODUCT" />
     </Type>
   </Table>
 </Database>

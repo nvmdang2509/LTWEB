@@ -39,6 +39,9 @@ namespace LTWEB.Models
     partial void InsertCATEGORY(CATEGORY instance);
     partial void UpdateCATEGORY(CATEGORY instance);
     partial void DeleteCATEGORY(CATEGORY instance);
+    partial void InsertCOLOR(COLOR instance);
+    partial void UpdateCOLOR(COLOR instance);
+    partial void DeleteCOLOR(COLOR instance);
     partial void InsertMENU(MENU instance);
     partial void UpdateMENU(MENU instance);
     partial void DeleteMENU(MENU instance);
@@ -48,10 +51,13 @@ namespace LTWEB.Models
     partial void InsertPRODUCT(PRODUCT instance);
     partial void UpdatePRODUCT(PRODUCT instance);
     partial void DeletePRODUCT(PRODUCT instance);
+    partial void InsertSIZE(SIZE instance);
+    partial void UpdateSIZE(SIZE instance);
+    partial void DeleteSIZE(SIZE instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["LTWEBConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["LTWEBConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -104,6 +110,14 @@ namespace LTWEB.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<COLOR> COLORs
+		{
+			get
+			{
+				return this.GetTable<COLOR>();
+			}
+		}
+		
 		public System.Data.Linq.Table<MENU> MENUs
 		{
 			get
@@ -125,6 +139,14 @@ namespace LTWEB.Models
 			get
 			{
 				return this.GetTable<PRODUCT>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SIZE> SIZEs
+		{
+			get
+			{
+				return this.GetTable<SIZE>();
 			}
 		}
 	}
@@ -486,8 +508,6 @@ namespace LTWEB.Models
 		
 		private System.Nullable<System.DateTime> _datebegin;
 		
-		private EntitySet<PRODUCT> _PRODUCTs;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -510,7 +530,6 @@ namespace LTWEB.Models
 		
 		public CATEGORY()
 		{
-			this._PRODUCTs = new EntitySet<PRODUCT>(new Action<PRODUCT>(this.attach_PRODUCTs), new Action<PRODUCT>(this.detach_PRODUCTs));
 			OnCreated();
 		}
 		
@@ -654,7 +673,96 @@ namespace LTWEB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CATEGORY_PRODUCT", Storage="_PRODUCTs", ThisKey="categoryid", OtherKey="categoryid")]
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.COLOR")]
+	public partial class COLOR : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idcolor;
+		
+		private string _color1;
+		
+		private EntitySet<PRODUCT> _PRODUCTs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidcolorChanging(int value);
+    partial void OnidcolorChanged();
+    partial void Oncolor1Changing(string value);
+    partial void Oncolor1Changed();
+    #endregion
+		
+		public COLOR()
+		{
+			this._PRODUCTs = new EntitySet<PRODUCT>(new Action<PRODUCT>(this.attach_PRODUCTs), new Action<PRODUCT>(this.detach_PRODUCTs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idcolor", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idcolor
+		{
+			get
+			{
+				return this._idcolor;
+			}
+			set
+			{
+				if ((this._idcolor != value))
+				{
+					this.OnidcolorChanging(value);
+					this.SendPropertyChanging();
+					this._idcolor = value;
+					this.SendPropertyChanged("idcolor");
+					this.OnidcolorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="color", Storage="_color1", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string color1
+		{
+			get
+			{
+				return this._color1;
+			}
+			set
+			{
+				if ((this._color1 != value))
+				{
+					this.Oncolor1Changing(value);
+					this.SendPropertyChanging();
+					this._color1 = value;
+					this.SendPropertyChanged("color1");
+					this.Oncolor1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="COLOR_PRODUCT", Storage="_PRODUCTs", ThisKey="idcolor", OtherKey="idcolor")]
 		public EntitySet<PRODUCT> PRODUCTs
 		{
 			get
@@ -690,13 +798,13 @@ namespace LTWEB.Models
 		private void attach_PRODUCTs(PRODUCT entity)
 		{
 			this.SendPropertyChanging();
-			entity.CATEGORY = this;
+			entity.COLOR1 = this;
 		}
 		
 		private void detach_PRODUCTs(PRODUCT entity)
 		{
 			this.SendPropertyChanging();
-			entity.CATEGORY = null;
+			entity.COLOR1 = null;
 		}
 	}
 	
@@ -1214,7 +1322,13 @@ namespace LTWEB.Models
 		
 		private System.Nullable<int> _categoryid;
 		
-		private EntityRef<CATEGORY> _CATEGORY;
+		private int _idcolor;
+		
+		private int _idsize;
+		
+		private EntityRef<COLOR> _COLOR1;
+		
+		private EntityRef<SIZE> _SIZE1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1244,11 +1358,16 @@ namespace LTWEB.Models
     partial void OndatebeginChanged();
     partial void OncategoryidChanging(System.Nullable<int> value);
     partial void OncategoryidChanged();
+    partial void OnidcolorChanging(int value);
+    partial void OnidcolorChanged();
+    partial void OnidsizeChanging(int value);
+    partial void OnidsizeChanged();
     #endregion
 		
 		public PRODUCT()
 		{
-			this._CATEGORY = default(EntityRef<CATEGORY>);
+			this._COLOR1 = default(EntityRef<COLOR>);
+			this._SIZE1 = default(EntityRef<SIZE>);
 			OnCreated();
 		}
 		
@@ -1483,10 +1602,6 @@ namespace LTWEB.Models
 			{
 				if ((this._categoryid != value))
 				{
-					if (this._CATEGORY.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OncategoryidChanging(value);
 					this.SendPropertyChanging();
 					this._categoryid = value;
@@ -1496,36 +1611,118 @@ namespace LTWEB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CATEGORY_PRODUCT", Storage="_CATEGORY", ThisKey="categoryid", OtherKey="categoryid", IsForeignKey=true)]
-		public CATEGORY CATEGORY
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idcolor", DbType="Int NOT NULL")]
+		public int idcolor
 		{
 			get
 			{
-				return this._CATEGORY.Entity;
+				return this._idcolor;
 			}
 			set
 			{
-				CATEGORY previousValue = this._CATEGORY.Entity;
+				if ((this._idcolor != value))
+				{
+					if (this._COLOR1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidcolorChanging(value);
+					this.SendPropertyChanging();
+					this._idcolor = value;
+					this.SendPropertyChanged("idcolor");
+					this.OnidcolorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idsize", DbType="Int NOT NULL")]
+		public int idsize
+		{
+			get
+			{
+				return this._idsize;
+			}
+			set
+			{
+				if ((this._idsize != value))
+				{
+					if (this._SIZE1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidsizeChanging(value);
+					this.SendPropertyChanging();
+					this._idsize = value;
+					this.SendPropertyChanged("idsize");
+					this.OnidsizeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="COLOR_PRODUCT", Storage="_COLOR1", ThisKey="idcolor", OtherKey="idcolor", IsForeignKey=true)]
+		public COLOR COLOR1
+		{
+			get
+			{
+				return this._COLOR1.Entity;
+			}
+			set
+			{
+				COLOR previousValue = this._COLOR1.Entity;
 				if (((previousValue != value) 
-							|| (this._CATEGORY.HasLoadedOrAssignedValue == false)))
+							|| (this._COLOR1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._CATEGORY.Entity = null;
+						this._COLOR1.Entity = null;
 						previousValue.PRODUCTs.Remove(this);
 					}
-					this._CATEGORY.Entity = value;
+					this._COLOR1.Entity = value;
 					if ((value != null))
 					{
 						value.PRODUCTs.Add(this);
-						this._categoryid = value.categoryid;
+						this._idcolor = value.idcolor;
 					}
 					else
 					{
-						this._categoryid = default(Nullable<int>);
+						this._idcolor = default(int);
 					}
-					this.SendPropertyChanged("CATEGORY");
+					this.SendPropertyChanged("COLOR1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SIZE_PRODUCT", Storage="_SIZE1", ThisKey="idsize", OtherKey="idsize", IsForeignKey=true)]
+		public SIZE SIZE1
+		{
+			get
+			{
+				return this._SIZE1.Entity;
+			}
+			set
+			{
+				SIZE previousValue = this._SIZE1.Entity;
+				if (((previousValue != value) 
+							|| (this._SIZE1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SIZE1.Entity = null;
+						previousValue.PRODUCTs.Remove(this);
+					}
+					this._SIZE1.Entity = value;
+					if ((value != null))
+					{
+						value.PRODUCTs.Add(this);
+						this._idsize = value.idsize;
+					}
+					else
+					{
+						this._idsize = default(int);
+					}
+					this.SendPropertyChanged("SIZE1");
 				}
 			}
 		}
@@ -1548,6 +1745,120 @@ namespace LTWEB.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIZE")]
+	public partial class SIZE : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idsize;
+		
+		private string _size1;
+		
+		private EntitySet<PRODUCT> _PRODUCTs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidsizeChanging(int value);
+    partial void OnidsizeChanged();
+    partial void Onsize1Changing(string value);
+    partial void Onsize1Changed();
+    #endregion
+		
+		public SIZE()
+		{
+			this._PRODUCTs = new EntitySet<PRODUCT>(new Action<PRODUCT>(this.attach_PRODUCTs), new Action<PRODUCT>(this.detach_PRODUCTs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idsize", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idsize
+		{
+			get
+			{
+				return this._idsize;
+			}
+			set
+			{
+				if ((this._idsize != value))
+				{
+					this.OnidsizeChanging(value);
+					this.SendPropertyChanging();
+					this._idsize = value;
+					this.SendPropertyChanged("idsize");
+					this.OnidsizeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="size", Storage="_size1", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string size1
+		{
+			get
+			{
+				return this._size1;
+			}
+			set
+			{
+				if ((this._size1 != value))
+				{
+					this.Onsize1Changing(value);
+					this.SendPropertyChanging();
+					this._size1 = value;
+					this.SendPropertyChanged("size1");
+					this.Onsize1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SIZE_PRODUCT", Storage="_PRODUCTs", ThisKey="idsize", OtherKey="idsize")]
+		public EntitySet<PRODUCT> PRODUCTs
+		{
+			get
+			{
+				return this._PRODUCTs;
+			}
+			set
+			{
+				this._PRODUCTs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PRODUCTs(PRODUCT entity)
+		{
+			this.SendPropertyChanging();
+			entity.SIZE1 = this;
+		}
+		
+		private void detach_PRODUCTs(PRODUCT entity)
+		{
+			this.SendPropertyChanging();
+			entity.SIZE1 = null;
 		}
 	}
 }

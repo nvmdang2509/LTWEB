@@ -11,7 +11,7 @@
     <p>
         @Html.ActionLink("Đăng bài", "Create", "Admin")
     </p>
-    <table class="table" border="1" width="1000">
+    <table class="table" border="2" width="1000">
         <tr>
             <th>
                 ID
@@ -29,23 +29,15 @@
                 Nội dung
             </th>
             <th>
-                GIÁ
-            </th>
-            <th>
-                Meta
-            </th>
-            <th>
                 Size
             </th>
             <th>
                 Color
             </th>
             <th>
-                Order
-            </th>
-            <th>
                 Ngày đăng
             </th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -61,24 +53,18 @@
             @Html.DisplayFor(modelItem => item.price)
         </td>
         <td>
-            <img src="~/Content/HinhAnh/@item.img" width="300" />
+            <img src="~/Content/HinhAnh/@item.img"  width="200" />
             @Html.DisplayFor(modelItem => item.img)
         </td>
         <td>
             @Html.Raw(item.description)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.meta)
-        </td>
 
         <td>
-            @Html.DisplayFor(modelItem => item.size)
+            @Html.DisplayFor(modelItem => item.idsize)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.color)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.order)
+            @Html.DisplayFor(modelItem => item.idcolor)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.datebegin)
@@ -87,7 +73,6 @@
             @Html.ActionLink("Edit", "Capnhat", new { id = item.id }) |
             @Html.ActionLink("Details", "Chitietbaiviet", new { id = item.id }) |
             @Html.ActionLink("Delete", "Home", new { id = item.id }) |
-            @Html.ActionLink("Hiện bài", "Showbai", new { id = item.id }) |
         </td>
     </tr>
         }

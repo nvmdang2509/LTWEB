@@ -58,19 +58,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <ul class="nav pull-right top-menu">
                     <!-- user login dropdown start-->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" src="~/Content/images/3.png">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">       
                             <label style="color:black;font-size:20px;">
                                 @if (Session["Taikhoan"] != null)
                                 {
+                                    <img alt="" src="~/Content/images/3.png">
                                     <text>
                                         Xin chào, @Session["Taikhoan"].ToString()
                                     </text>
                                 }
-                            </label>
-                            <b class="caret"></b>
+                            </label>  
+                             <b class="caret"></b>
                         </a>
-                        
+                        @if(Session["TaiKhoan"] == null)
+                        {
+                            <a href="@Url.Action("Login","Admin")"><i class="fa fa-key"></i> Login</a>
+                        }
                         <ul class="dropdown-menu extended logout">
                             <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>

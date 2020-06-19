@@ -1,68 +1,79 @@
-﻿
+﻿@model IEnumerable<LTWEB.Models.LoadDanhSach>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MasterPage.cshtml";
+    var money = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
-    <div class="col-sm-3">
-        <div class="left-sidebar">
-            <h2>Danh mục Sản Phẩm</h2>
-            <div class="panel-group category-products" id="accordian">
-                <!--category-productsr-->
-               
-               
-
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title"><a href="@Url.Action("Listsanpham","User")">Filco</a></h4>
-                    </div>
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @Html.Raw(input)
+    }
+    else
+    {
+        @Html.Raw(input.Substring(0, length))<text>...</text>
+    }
+}
+<div class="col-sm-3">
+    <div class="left-sidebar">
+        <h2>Danh mục Sản Phẩm</h2>
+        <div class="panel-group category-products" id="accordian">
+            <!--category-productsr-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><a href="@Url.Action("Listsanpham","User")">Filco</a></h4>
                 </div>
-            </div><!--/category-products-->
-
-            <div class="brands_products">
-                <!--brands_products-->
-                <h2>Thương Hiệu Sản Phẩm</h2>
-                <div class="brands-name">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li><a href="#"> <span class="pull-right"></span>Filco</a></li>
-                        <li><a href="#"> <span class="pull-right"></span>IKBC</a></li>
-                    </ul>
-                </div>
-            </div><!--/brands_products-->
-
-
-
-            <div class="shipping text-center">
-                <!--shipping-->
-                   <img src="~/Asset/page/images/home/bgdung.jpg" />g" alt="" />
-            </div><!--/shipping-->
-
-        </div>
-    </div>
-<div class="col-sm-9 padding-right">
-<div class="features_items">
-    <!--features_items-->
-    <h2 class="title text-center">Sản Phẩm Mới</h2>
-    <div class="col-sm-4">
-        <div class="product-image-wrapper">
-            <div class="single-products">
-                <div class="productinfo text-center">
-                    <img src="~/Asset/page/images/home/a.jpg" />
-                    <h2>Giá 3.500.000</h2>
-                    <p>Bàn phím cơ</p>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                </div>
-                
             </div>
-            <div class="choose">
-                <ul class="nav nav-pills nav-justified">
-                    <li><a href="#"><i class="fa fa-plus-square"></i>Thêm yêu thích</a></li>
-                    <li><a href="#"><i class="fa fa-plus-square"></i>Thêm so sánh</a></li>
+        </div><!--/category-products-->
+
+        <div class="brands_products">
+            <!--brands_products-->
+            <h2>Thương Hiệu Sản Phẩm</h2>
+            <div class="brands-name">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="#"> <span class="pull-right"></span>Filco</a></li>
+                    <li><a href="#"> <span class="pull-right"></span>IKBC</a></li>
                 </ul>
             </div>
-        </div>
+        </div><!--/brands_products-->
+
+
+
+        <div class="shipping text-center">
+            <!--shipping-->
+            <img src="~/Asset/page/images/home/bgdung.jpg" width="300" height="400" />
+        </div><!--/shipping-->
+
     </div>
-   
 </div>
+<div class="col-sm-9 padding-right">
+    <div class="features_items">
+        <!--features_items-->
+        <h2 class="title text-center">Sản Phẩm Mới</h2>
+        @foreach (var a in Model)
+        {
+            <div class="col-sm-4">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            <img src="~/Content/HinhAnh/@a.img" width="300" height="150"/>
+                            <h2>@String.Format(money, "{0:c0}", a.price)</h2>
+                            <p>@a.name</p>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                        </div>
+
+                    </div>
+                    <div class="choose">
+                        <ul class="nav nav-pills nav-justified">
+                            <li><a href="#"><i class="fa fa-plus-square"></i>Thêm yêu thích</a></li>
+                            <li><a href="#"><i class="fa fa-plus-square"></i>Thêm so sánh</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
 
 </div><!--features_items-->

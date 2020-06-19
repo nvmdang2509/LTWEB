@@ -21,54 +21,40 @@
 
             <tr style="height:40px">
                 <td>Giá:</td>
-                <td><input @*onChange="format_curency(this);"*@ name="price" type="number"></td>
+                <td><input name="price" type="number"></td>
+            </tr>
+
+            <tr style="height:40px">
+                <td>Chọn Size:</td>
+                <td>
+                    <select id="idsize" name="idsize" style="height:30px">
+                        <option value="1">Full Size</option>
+                        <option value="2">Tenkeyless (TKL)</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td>Chọn màu:</td>
+                <td>
+                    <select id="idcolor" name="idcolor" style="height:30px">
+                        <option value="1">Black</option>
+                        <option value="2">Red</option>
+                        <option value="3">White</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(model => model.img, new { @class = "control-label col-md-2" })</td>
+                <td><input type="file" name="fileupload" /></td>
             </tr>
 
 
             <tr style="height:40px;">
-                <td>Nhập thông tin chi  tiết :</td>
+                <td>Nhập thông tin chi tiết :</td>
                 <td><textarea id="summernote" name="description"></textarea></td>
             </tr>
-            <tr style="height: 40px">
-                <td>Tên đường:</td>
-                <td>@Html.TextBox("TENDUONG")</td>
-            </tr>
-
-            <tr style="height:40px">
-                <td>Tên quận:</td>
-                <td>@Html.TextBox("TENQUAN")</td>
-            </tr>
-
-            <tr style="height:40px">
-                <td>Diện tích:</td>
-                <td>@Html.TextBox("DIENTICH")<label style="margin-left:20px;">Đơn vị tính : (m<sup>2</sup>)</label></td>
-            </tr>
-
-            <tr style="height:40px">
-                <td>Tên dịch vụ:</td>
-                <td>
-                    <select id="MADV" name="MADV" style="height:30px">
-                        <option value="10">Thuê phòng trọ</option>
-                        <option value="20">Tìm người ở ghép</option>
-                        <option value="30"> Tìm nhà cho thuê</option>
-                    </select>
-                </td>
-                @*<td>@Html.TextBox("MADV")</td>*@
-            </tr>
-
-
-
-
-
-            <tr>
-                @*<div class="form-group">
-                <div class="col-md-10">*@
-                <td>@Html.LabelFor(model => model.HINH, new { @class = "control-label col-md-2" })</td>
-                <td><input type="file" name="fileupload" /></td>
-                @*</div>
-                </div>*@
-            </tr>
-
 
             <tr style="height:40px">
                 <td></td>
@@ -81,7 +67,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#summernote').summernote({ width: 400, });
+        $('#summernote').summernote();
     });
 </script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>

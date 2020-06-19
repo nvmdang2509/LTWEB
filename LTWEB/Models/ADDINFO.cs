@@ -15,8 +15,8 @@ namespace LTWEB.Models
         public string img { get; set; }
         public string description { get; set; }
         public string meta { get; set; }
-        public string size { get; set; }
-        public string color { get; set; }
+        public int idsize { get; set; }
+        public int idcolor { get; set; }
         public bool hide { get; set; }
         public int order { get; set; }
         public DateTime datebegin { get; set; }

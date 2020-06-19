@@ -14,6 +14,7 @@ namespace LTWEB.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            
             return View();
         }
 
@@ -98,6 +99,7 @@ namespace LTWEB.Controllers
 
         public ActionResult Index()
         {
+            getBaiviet();
             return View();
         }
 
@@ -108,6 +110,32 @@ namespace LTWEB.Controllers
                     orderby t.order ascending
                     select t;
             return PartialView(v.ToList());
+        }
+        [NonAction]
+        public ActionResult getBaiviet()
+        {
+            IList<LoadDanhSach> baiviet = new List<LoadDanhSach>();
+
+
+            var a = from b in db1.PRODUCTs
+                    where b.hide == true
+                    orderby b.datebegin descending
+                    select b;
+            foreach (var d in a)
+            {
+                baiviet.Add(new LoadDanhSach
+                {
+                    id = d.id,
+                    name = d.name,
+                    price = float.Parse(d.price.ToString()),
+                    description = d.description,
+                    idsize = Int32.Parse(d.idsize.ToString()),
+                    idcolor = Int32.Parse(d.idcolor.ToString()),
+                    img = d.img,
+                    datebegin = DateTime.Parse(d.datebegin.ToString()),
+                });
+            }
+            return View(baiviet);
         }
     }
 }

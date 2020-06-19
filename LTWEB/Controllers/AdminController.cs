@@ -270,10 +270,8 @@ namespace LTWEB.Controllers
             var name = collection["name"];
             var price = collection["price"];
             var description = collection["description"];
-            var meta = collection["meta"];
-            var size = collection["size"];
-            var color = collection["color"];
-            var order = collection["order"];
+            var idsize = collection["idsize"];
+            var idcolor = collection["idcolor"];
             var NGAYUP = String.Format("{0:MM/dd/yyyy}", collection["NGAYUP"]);
             if (String.IsNullOrEmpty(name))
             {
@@ -323,9 +321,8 @@ namespace LTWEB.Controllers
                         add.name = name;
                         add.price = float.Parse(price);
                         add.description = description;
-                        add.meta = meta;
-                        add.size = size;
-                        add.color = color;
+                        add.idsize = Int32.Parse(idsize);
+                        add.idcolor = Int32.Parse(idcolor);
                         add.hide = false;
                         add.datebegin = DateTime.Now;
                         db.PRODUCTs.InsertOnSubmit(add);
@@ -484,6 +481,36 @@ namespace LTWEB.Controllers
                 });
             }
             return View(infoacc);
+        }
+
+        public ActionResult ListBaiViet1()
+        {
+            if (Equals(Session["ID_ROLE"], 2)) return RedirectToAction("Index", "User");
+            if (Session["TaiKhoan"] == null)
+            {
+                ViewData["Loi1"] = "Vui lòng đăng nhập tài khoản";
+            }
+
+            var a = from b in db.PRODUCTs
+                    orderby b.datebegin descending
+                    where b.hide == false
+                    select b;
+            return View(a.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult Showbai()
+        {
+            var getid = Url.RequestContext.RouteData.Values["id"];
+            var a = from b in db.PRODUCTs
+                    where Equals(b.id, getid) && b.hide == false
+                    select b;
+            foreach (var c in a)
+            {
+                c.hide = true;
+                db.SubmitChanges();
+            }
+            return RedirectToAction("Getlistbaiviet");
         }
     }
 }
